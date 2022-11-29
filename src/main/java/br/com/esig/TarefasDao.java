@@ -64,6 +64,24 @@ public class TarefasDao {
         }
     }
 
+    public List<Tarefa> selecionarTodos() throws Exception{
+        EntityManager entidade = JpaRBean.getEntityManagerFactory().createEntityManager();
+        List<Tarefa> tarefas = null;
+        try
+        {
+            tarefas = entidade.createQuery("from Tarefa").getResultList();
+        }
+        catch(Exception e)
+        {
+            throw new Exception(e);
+        }
+        finally {
+            entidade.close();
+        }
+
+            return tarefas;
+    }
+
     public Tarefa selecionarIndice(long indice)
     {
         EntityManager entidade = JpaRBean.getEntityManagerFactory().createEntityManager();

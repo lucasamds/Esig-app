@@ -7,7 +7,34 @@ import java.util.*;
 
 public class Main {
     private static EntityManagerFactory entityManagerFactory;
+    /*
+    entityManagerFactory = Persistence.createEntityManagerFactory( "org.hibernate.esig.app");
+    EntityManager entidade = entityManagerFactory.createEntityManager();
 
+    public void remover(int indice){
+        Tarefa tarefas = null;
+        try
+        {
+            tarefas = entidade.find(Tarefa.class, 1L);
+
+            entidade.getTransaction().begin();
+            entidade.remove(tarefas);
+            entidade.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            entidade.getTransaction().rollback();
+        }
+        finally {
+            entidade.close();
+        }
+    }
+
+    public void editar()
+    {
+
+    }
+*/
     public static void main(String[] args) {
         entityManagerFactory = Persistence.createEntityManagerFactory( "org.hibernate.esig.app");
 
@@ -18,7 +45,7 @@ public class Main {
         Tarefa tarefas = null;
         try
         {
-            tarefas = entidade.find(Tarefa.class, 2L);
+            tarefas = entidade.find(Tarefa.class, 1L);
 
             entidade.getTransaction().begin();
             entidade.remove(tarefas);
@@ -37,7 +64,7 @@ public class Main {
         Tarefa tarefas = null;
         try
         {
-            tarefas = entidade.find(Tarefa.class, 1L);
+            tarefas = entidade.find(Tarefa.class, 2L);
             tarefas.setTitulo("Mudei o titulo");
             tarefas.setDescricao("Mudei aqui tbm");
 
@@ -53,6 +80,63 @@ public class Main {
             entidade.close();
         }*/
 
+/*
+        //****Selecionar elemento pelo indice
+
+        Tarefa tarefa = null;
+        try
+        {
+            tarefa = entidade.find(Tarefa.class, 2L);
+            System.out.println(tarefa);
+        }
+        catch(Exception e)
+        {
+            System.out.println("LIST ALL" + e.getMessage());
+        }
+        finally {
+            entidade.close();
+        }*/
+/*
+        //****Selecionar elementos pelo título
+
+        List<Tarefa> tarefas = null;
+        String s = "%app%";
+        try
+        {
+            tarefas = entidade.createQuery("from Tarefa t where t.titulo LIKE 'Ter%'").getResultList();
+        }
+        catch(Exception e)
+        {
+            System.out.println("LIST ALL" + e.getMessage());
+        }
+        finally {
+            entidade.close();
+        }
+        if(tarefas != null)
+        {
+            tarefas.forEach(System.out::println);
+        }
+
+*/
+
+        //****Selecionar todos os elementos
+
+        List<Tarefa> tarefas = null;
+        try
+        {
+            tarefas = entidade.createQuery("from Tarefa").getResultList();
+        }
+        catch(Exception e)
+        {
+            System.out.println("LIST ALL" + e.getMessage());
+        }
+        finally {
+            entidade.close();
+        }
+        if(tarefas != null)
+        {
+            tarefas.forEach(System.out::println);
+        }
 
         //****Selecionar elementos que contenham um texto indicado
 /*
@@ -75,21 +159,8 @@ public class Main {
         }
 */
  /*
-        //****Selecionar pelo indice
-        Tarefa tarefas = null;
-        try
-        {
-            tarefas = entidade.find(Tarefa.class, 1L);
-            System.out.println(tarefas.getTitulo()+" "+tarefas.getPrioridade() );
-        }
-        catch(Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        finally {
-            entidade.close();
-        }*/
 
+/*
         //*****Adicionar elemento
         Tarefa tarefa1 = new Tarefa();
         tarefa1.setTitulo("Primeiro lembrete");
@@ -99,11 +170,6 @@ public class Main {
         Date aux = new Date();
         java.sql.Date dataSQL = new java.sql.Date(aux.getTime());
         tarefa1.setDeadline(dataSQL);
-
-
-
-        //Criação do Entity Manager
-        //EntityManager entidade = entityManagerFactory.createEntityManager();
 
         //Tentando iniciar uma nova transação e persistir um valor
         try{
@@ -118,6 +184,6 @@ public class Main {
         }
         finally {
             entidade.close();
-        }
+        }*/
     }
 }

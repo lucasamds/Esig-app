@@ -30,11 +30,11 @@ public class Tarefa {
     @Column(nullable = false)
     private java.sql.Date deadline;
 
-    @Column(nullable = false)
-    private String situacao;
+    @Column(nullable = false, columnDefinition = "BIT(1) default 0")
+    private boolean concluido;
 
     public Tarefa() {
-        this.situacao = "Em andamento";
+        this.concluido = false;
     }
 
     /*Objetos com o mesmo indice, serão considerados o mesmo objeto*/
@@ -97,5 +97,16 @@ public class Tarefa {
 
     public void setDeadline(java.sql.Date deadline) {
         this.deadline = deadline;
+    }
+
+    public void setConcluido(boolean concluido) { this.concluido = concluido; }
+
+    public String getConcluidoString() { return concluido ? "Concluído" : "Em aberto"; }
+
+    public String toString()
+    {
+        return "Tarefa{" + "id = " + indice + ", título = " + titulo +
+                ", desc = " + descricao + ", responsável = " + responsavel +
+                ", prioridade = " + prioridade + ", dl = " + deadline + "}";
     }
 }
